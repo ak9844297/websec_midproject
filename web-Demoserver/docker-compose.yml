@@ -1,0 +1,38 @@
+version: "2"
+services:
+    web:
+        build: ./image
+        ports: 
+            - "8000:80"
+        volumes:
+            - ./www:/var/www/html/
+        links:
+            - db
+        networks:
+            - default
+        hostname: demo.fangs.works
+    db:
+        image: mysql:5.7
+        environment:
+            MYSQL_DATABASE: mydatabase
+            MYSQL_USER: user
+            MYSQL_PASSWORD: PASSWORD_test
+            MYSQL_ROOT_PASSWORD: ROOT_PASSWORD_test
+            LANG: C.UTF_8 
+        networks:
+            - default
+        volumes:
+            - ./database:/docker-entrypoint-initdb.d
+        hostname: demo.fangs.works
+        command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        links: 
+            - db:db
+        ports:
+            - 8002:80
+        environment:
+            MYSQL_USER: user
+            MYSQL_PASSWORD: PASSWORD_test
+            MYSQL_ROOT_PASSWORD: ROOT_PASSWORD_test
+        hostname: demo.fangs.works
