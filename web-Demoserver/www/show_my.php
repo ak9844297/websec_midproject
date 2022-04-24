@@ -29,8 +29,13 @@ function showBBcodes($text) {
 	return preg_replace($find,$replace,$text);
 }
 $username=$_SESSION["username"];
-$sql = "SELECT * FROM `messages` WHERE `username`='$username';";
-$result= mysqli_query($link,$sql);
+//$sql = "SELECT * FROM `messages` WHERE `username`='$username';";
+$sql = ('SELECT * FROM `messages` WHERE `username` = ?');
+$res=$link->prepare($sql);
+$res->bind_param('s',$username);
+$res->execute();
+$result=$res->get_result();
+//$result= mysqli_query($link,$sql);
 echo"<p style =\"text-align : center\">看看你留了什麼言~:";
 echo"<table class=\"center\" border = '2'><tr style=\"text-align : center\">";
 $meta = mysqli_fetch_field($result);
@@ -39,23 +44,30 @@ while ($meta = mysqli_fetch_field($result)) {
 }
 echo"<td> 刪除</td>";
 echo"</tr>";
+$name=$_SESSION['id'];
+$username=htmlspecialchars($username, ENT_QUOTES, $charset);
+
 while($row=mysqli_fetch_row($result)) {
         echo "<tr></br>";
-             echo "<td> $row[1]";
+             echo "<td> $username";
             if(file_exists("photo/$row[1].png"))
     {
 echo "<div class=\"circle\"><img src=\"photo/$row[1].png\"/></div></td>";
+    }
+    else if(file_exists("photo/$name.png"))
+    {
+    echo "<div class=\"circle\"><img src=\"photo/$name.png\"/></div></td>";
     }
     else{
         echo"</td>";
     }
     $bbtext = $row[2];
     $htmltext = showBBcodes($bbtext);
+    $row[2]=htmlspecialchars($row[2], ENT_QUOTES, $charset);
     echo "<td> $htmltext </td>";
     echo "<td> $row[3] </td>";
     echo"<td><form method=post action=\"delete.php\">";
     echo"<input type='hidden' id=\"id\" name=\"id\" value=$row[0]>";
-    echo"<input type='hidden' id=\"username\" name=\"username\" value=$row[1]>";
     echo"<input type='hidden' id=\"text\" name=\"text\" value=$row[2]>";
     echo"<input type='hidden' id=\"date\" name=\"date\" value=$row[3]>";
     echo"<button type='submit'>刪除此留言</button></form></td>";

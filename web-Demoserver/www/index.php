@@ -13,6 +13,12 @@ else if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>留言板登入處</title>
+<style>
+    .center {
+  margin-left: auto;
+  margin-right: auto;
+}
+ </style>
 </head>
 <body style="text-align : center">
     <h1>😭拜託各位30cm金城武跟E罩杯女神不要打我😭</h1>

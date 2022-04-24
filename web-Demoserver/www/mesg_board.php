@@ -7,7 +7,7 @@ require_once('config.php');
 $sql = "SELECT * FROM `messages`;";
 $result= mysqli_query($link,$sql);
 function showBBcodes($text) {
-	$text  = htmlspecialchars($text, ENT_QUOTES, $charset);
+	$text  = htmlspecialchars($text, ENT_NOQUOTES, $charset);
 	$find = array(
 		'~\[b\](.*?)\[/b\]~s',
 		'~\[i\](.*?)\[/i\]~s',
@@ -26,7 +26,7 @@ function showBBcodes($text) {
 		'<span style="font-size:$1px;">$2</span>',
 		'<span style="color:$1;">$2</span>',
 		'<a href="$1">$1</a>',
-		'<img src="$1" alt="" />'
+		'<img style="max-height:200px; max-width:200px;" src="$1" alt="" />'
 	);
 	return preg_replace($find,$replace,$text);
 }
@@ -42,24 +42,37 @@ while ($meta = mysqli_fetch_field($result)) {
 }
 echo"<td> 查看</td>";
 echo"</tr>";
+
 while($row=mysqli_fetch_row($result)) {
+
         echo "<tr></br>";
-            
+        $f=$row[1];
+        $row[1]  = htmlspecialchars($row[1], ENT_QUOTES, $charset);
+        $sql2 = ('SELECT * FROM `users` WHERE `username` = ?');
+        $res2=$link->prepare($sql2);
+        $res2->bind_param('s',$f);
+        $res2->execute();
+        $result2=$res2->get_result();
+        $res2=mysqli_fetch_row($result2);
              echo "<td> $row[1]";
             if(file_exists("photo/$row[1].png"))
     {
 echo "<div class=\"circle\"><img src=\"photo/$row[1].png\"/></div></td>";
     }
+    else if(file_exists("photo/$res2[0].png"))
+    {
+echo "<div class=\"circle\"><img src=\"photo/$res2[0].png\"/></div></td>";
+    }
     else{
         echo"</td>";
     }
+    //$row[2]=htmlspecialchars_decode(row[2]);
     $bbtext = $row[2];
     $htmltext = showBBcodes($bbtext);
     echo "<td> $htmltext </td>";
     echo "<td> $row[3] </td>";
     echo"<td><form method=post action=\"one_mesg.php\">";
     echo"<input type='hidden' id=\"id\" name=\"id\" value=$row[0]>";
-
     echo"<input type='hidden' id=\"date\" name=\"date\" value=$row[3]>";
     echo"<button type='submit'>查看此留言</button></form></td>";
 }

@@ -7,8 +7,10 @@ if ($_FILES['my_file']['error'] === UPLOAD_ERR_OK){
   //echo '檔案大小: ' . ($_FILES['my_file']['size'] / 1024) . ' KB<br/>';
   //echo '暫存名稱: ' . $_FILES['my_file']['tmp_name'] . '<br/>';
   # 檢查檔案是否已經存在
+  //$name=htmlspecialchars($_SESSION["username"], ENT_QUOTES, $charset);
+  $name=$_SESSION['id'];
+  $_FILES['my_file']['name']=$name.'.'.'png';
   $ext = pathinfo($_FILES['my_file']['name'], PATHINFO_EXTENSION); 
-  $_FILES['my_file']['name']=$_SESSION["username"].'.'.'png';
   if (file_exists('photo/' . $_FILES['my_file']['name'])){
     unlink('photo/'.$_FILES['my_file']['name']);
     $file = $_FILES['my_file']['tmp_name'];

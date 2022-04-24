@@ -2,11 +2,16 @@
 $id=$_POST['id'];
 $c=$_POST['date'];
 require_once('config.php');
-$sql = "SELECT * FROM `messages` WHERE `id`=$id ";
-$res1= mysqli_query($link,$sql);
+//$sql = "SELECT * FROM `messages` WHERE `id`=$id ";
+$sql = ('SELECT * FROM `messages` WHERE `id` = ?');
+$res=$link->prepare($sql);
+$res->bind_param('s',$id);
+$res->execute();
+$res1=$res->get_result();
+//$res1= mysqli_query($link,$sql);
 $result=mysqli_fetch_row($res1);
 function showBBcodes($text) {
-	$text  = htmlspecialchars($text, ENT_QUOTES, $charset);
+	$text  = htmlspecialchars($text, ENT_NOQUOTES, $charset);
 	$find = array(
 		'~\[b\](.*?)\[/b\]~s',
 		'~\[i\](.*?)\[/i\]~s',
@@ -29,6 +34,15 @@ function showBBcodes($text) {
 	);
 	return preg_replace($find,$replace,$text);
 }
+
+$f=$result[1];
+        $result[1]  = htmlspecialchars($result[1], ENT_QUOTES, $charset);
+        $sql2 = ('SELECT * FROM `users` WHERE `username` = ?');
+        $res2=$link->prepare($sql2);
+        $res2->bind_param('s',$f);
+        $res2->execute();
+        $result2=$res2->get_result();
+ $res2=mysqli_fetch_row($result2);
 $a=$result[1];
 echo"<p style =\"text-align : center\">看看你選擇的留言:";
 echo"<table class=\"center\" border = '2'><tr style=\"text-align : center\">";
@@ -37,6 +51,10 @@ echo "<td>$a";
 if(file_exists("photo/$a.png"))
 {
 echo "<div class=\"circle\"><img src=\"photo/$a.png\"/></div></td>";
+}
+else if(file_exists("photo/$res2[0].png"))
+{
+echo "<div class=\"circle\"><img src=\"photo/$res2[0].png\"/></div></td>";
 }
 else{
 echo"</td>";
@@ -51,7 +69,9 @@ if(glob("file4mesg/$id.*")){
 foreach (glob("file4mesg/$id.*") as $file){
    // echo "$file</p>";
     }
- echo"<a href=\"https://demo.fangs.works/$file\">查看附件</a>";
+    $tmp=$file;
+$tmp=substr("$tmp",0,-4);
+ echo"<a href=\"https://demo.fangs.works/$file\" download=\"$tmp\">下載附件</a>";
 }
 
 else{

@@ -18,7 +18,7 @@ function file_get_contents_curl($url) {
 }
 $dest=$_POST['my_url'];
 $data = file_get_contents_curl($dest);      
-    $fp = $_SESSION['username'].'.png';   
+    $fp = $_SESSION['id'].'.png';   
     file_put_contents('photo/'.$fp, $data );
     header("refresh:1,url=welcome.php");
     echo "上傳頭貼成功";

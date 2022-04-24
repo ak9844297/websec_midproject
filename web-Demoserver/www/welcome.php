@@ -6,11 +6,17 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === false){
     header("Location: index.php");
 }
 $username=$_SESSION["username"];
+$username=htmlspecialchars($username, ENT_QUOTES, $charset);
+$title=htmlspecialchars($title, ENT_QUOTES, $charset);
+$name=$_SESSION['id'];
 echo "<h1>你好 ".$username."</h1>";
-
 if(file_exists("photo/$username.png"))
 {
 echo "<img src=\"photo/$username.png\" width=\"300px\" heigh=\"200px\">";
+}
+else if(file_exists("photo/$name.png"))
+{
+echo "<img src=\"photo/$name.png\" width=\"300px\" heigh=\"200px\">";
 }
 else{
   echo '你還沒有大頭貼喔!';
