@@ -46,7 +46,7 @@ echo"<td> 刪除</td>";
 echo"</tr>";
 $name=$_SESSION['id'];
 $username=htmlspecialchars($username, ENT_QUOTES, $charset);
-
+$token=$_SESSION['token'];
 while($row=mysqli_fetch_row($result)) {
         echo "<tr></br>";
              echo "<td> $username";
@@ -68,6 +68,7 @@ echo "<div class=\"circle\"><img src=\"photo/$row[1].png\"/></div></td>";
     echo "<td> $row[3] </td>";
     echo"<td><form method=post action=\"delete.php\">";
     echo"<input type='hidden' id=\"id\" name=\"id\" value=$row[0]>";
+    echo"<input type='hidden' id=\"token\"name=\"token\"value=$token>";
     echo"<input type='hidden' id=\"text\" name=\"text\" value=$row[2]>";
     echo"<input type='hidden' id=\"date\" name=\"date\" value=$row[3]>";
     echo"<button type='submit'>刪除此留言</button></form></td>";

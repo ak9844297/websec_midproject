@@ -14,6 +14,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === false){
 </br>
 <textarea class="form-control" id="content" name="content" rows="10"></textarea>
 </div>
+<input type="hidden" name="token" value="<?php echo $_SESSION['token']?>">
 <input type="file" name="my_file">
 <input type="submit" value="上傳!">
 </form>

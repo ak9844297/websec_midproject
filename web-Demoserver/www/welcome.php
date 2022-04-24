@@ -29,10 +29,12 @@ echo "</br><a href='logout.php'>登出</a> <a href='mesg_board.php'>前往留言
 <body>
 <form method="post" enctype="multipart/form-data" action="upload.php">
   <input type="file" name="my_file" accept="image/*">
+  <input type="hidden" name="token" value="<?php echo $_SESSION['token']?>">
   <input type="submit" value="上傳頭貼檔">
 </form>
 <form method="post" enctype="multipart/form-data" action="upviaurl.php">
   <input type="url" id="my_url" name="my_url" placeholer='https://example.jpg' required >
+  <input type="hidden" name="token" value="<?php echo $_SESSION['token']?>">
   <input type="submit" value="透過網址上傳頭貼">
 </form>
 </body></html>

@@ -1,5 +1,11 @@
 <?php
 session_start();
+$token2=$_POST['token'];
+$token=$_SESSION['token'];
+if(!$token||$token2!=$token){
+    header("Location: index.php");
+}
+else{
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === false){
     header("Location: index.php");
 }
@@ -36,6 +42,6 @@ $result=$res->get_result();
         }
     header('refresh:1,url=mesg_board.php');
     echo'刪除成功 1s 後跳轉';
-
+}
 }
 ?>

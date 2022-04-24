@@ -34,6 +34,7 @@ try {
     else if($row){ 
         session_start();
         $_SESSION["loggedin"] = true;
+        $_SESSION['token']=md5(uniqid(mt_rand(),true));
         $_SESSION["id"] = $row["id"];
         $_SESSION["username"] = $row["username"];
         header("location:welcome.php");

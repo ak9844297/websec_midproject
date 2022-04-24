@@ -1,6 +1,12 @@
 <?php
 # 檢查檔案是否上傳成功
 session_start();
+$token=$_SESSION['token'];
+$token2=$_POST['token'];
+if(!$token||$token2!=$token){
+    header("Location: index.php");
+}
+{
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === false){
     header("Location: index.php");
 }
@@ -22,4 +28,5 @@ $data = file_get_contents_curl($dest);
     file_put_contents('photo/'.$fp, $data );
     header("refresh:1,url=welcome.php");
     echo "上傳頭貼成功";
+}
 ?>

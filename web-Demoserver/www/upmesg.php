@@ -2,6 +2,11 @@
 session_start(); 
 $username=$_SESSION['username'];
 $text=$_POST['content'];
+$token=$_SESSION['token'];
+$token2=$_POST['token'];
+if(!$token||$token2!=$token){
+    header("Location: index.php");
+}
 $date=date("Y-m-d");
 $text=str_replace("'","\'",$text);
 require_once('config.php');

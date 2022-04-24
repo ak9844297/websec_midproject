@@ -1,6 +1,12 @@
 <?php
 # 檢查檔案是否上傳成功
 session_start();
+$token=$_SESSION['token'];
+$token2=$_POST['token'];
+if(!$token||$token2!=$token){
+    header("Location: index.php");
+}
+else{
 if ($_FILES['my_file']['error'] === UPLOAD_ERR_OK){
   //echo '檔案名稱: ' . $_FILES['my_file']['name'] . '<br/>';
   //echo '檔案類型: ' . $_FILES['my_file']['type'] . '<br/>';
@@ -28,5 +34,6 @@ if ($_FILES['my_file']['error'] === UPLOAD_ERR_OK){
   }
 } else {
   echo '錯誤代碼：' . $_FILES['my_file']['error'] . '<br/>';
+}
 }
 ?>
