@@ -3,7 +3,7 @@ session_start();
 $token2=$_POST['token'];
 $token=$_SESSION['token'];
 if(!$token||$token2!=$token){
-    header("Location: index.php");
+    echo"wrongtoken";
 }
 else{
 if(!isset($_SESSION["adloggedin"]) || $_SESSION["adloggedin"] === false){

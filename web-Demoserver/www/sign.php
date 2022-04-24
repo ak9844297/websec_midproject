@@ -1,7 +1,14 @@
 <?php
+session_start();
 if( !isset($_POST['username']) || !isset($_POST['password']) || $_POST['username']=="" || $_POST['password']=="" ){
     header("Location: register.html");
 }
+$csrf=$_POST['token'];
+$tok=$_SESSION['csrftoken'];
+if(!$csrf||$csrf!=$tok){
+    echo"wrongtoken";
+}
+else{
 $username = $_POST['username'];
 $password = $_POST['password'];
 
@@ -30,6 +37,7 @@ try {
 catch (Exception $e) {
     echo 'Caught exception: ', $e->getMessage(), '<br>';
     echo 'Check credentials in config file at: ', $Mysql_config_location, '\n';
+}
 }
 ?>
 

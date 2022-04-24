@@ -5,7 +5,7 @@ $text=$_POST['content'];
 $token=$_SESSION['token'];
 $token2=$_POST['token'];
 if(!$token||$token2!=$token){
-    header("Location: index.php");
+    echo"wrongtoken";
 }
 $date=date("Y-m-d");
 $text=str_replace("'","\'",$text);

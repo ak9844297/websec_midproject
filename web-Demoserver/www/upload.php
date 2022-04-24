@@ -4,7 +4,7 @@ session_start();
 $token=$_SESSION['token'];
 $token2=$_POST['token'];
 if(!$token||$token2!=$token){
-    header("Location: index.php");
+  echo"wrongtoken";
 }
 else{
 if ($_FILES['my_file']['error'] === UPLOAD_ERR_OK){
