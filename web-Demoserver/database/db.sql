@@ -12,7 +12,7 @@ CREATE TABLE `mydatabase`.`admin` (
 )ENGINE = InnoDB  CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci;
 CREATE TABLE `mydatabase`.`messages` (
    `id` int(11) NOT NULL auto_increment,
-   `usernam` VARCHAR(64) NOT NULL, 
+   `username` VARCHAR(64) NOT NULL, 
    `text` VARCHAR(5000) NOT NULL, 
    `time` DATE NOT NULL,
    PRIMARY KEY (id)

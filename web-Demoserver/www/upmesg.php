@@ -7,8 +7,10 @@ $token2=$_POST['token'];
 if(!$token||$token2!=$token){
     echo"wrongtoken";
 }
+else{
 $date=date("Y-m-d");
 $text=str_replace("'","\'",$text);
+$username=str_replace("'","\'",$username);
 require_once('config.php');
 //$text=htmlspecialchars($text, ENT_QUOTES, $charset);
 mysqli_query($link,"INSERT INTO `messages` (`username`, `text`, `time`) VALUES ('$username','$text','$date');");
@@ -33,5 +35,5 @@ if ($_FILES['my_file']['error'] === UPLOAD_ERR_OK){
 //echo"$text";
 header("refresh:1,url=welcome.php");
 echo "上傳留言成功";
-
+}
 ?>

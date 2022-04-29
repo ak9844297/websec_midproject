@@ -15,9 +15,9 @@ services:
         image: mysql:5.7
         environment:
             MYSQL_DATABASE: mydatabase
-            MYSQL_USER: user
-            MYSQL_PASSWORD: PASSWORD_test
-            MYSQL_ROOT_PASSWORD: ROOT_PASSWORD_test
+            MYSQL_USER: B10815052
+            MYSQL_PASSWORD: a24070456
+            MYSQL_ROOT_PASSWORD: ROOT_a24070456
             LANG: C.UTF_8 
         networks:
             - default
@@ -32,7 +32,7 @@ services:
         ports:
             - 8002:80
         environment:
-            MYSQL_USER: user
-            MYSQL_PASSWORD: PASSWORD_test
-            MYSQL_ROOT_PASSWORD: ROOT_PASSWORD_test
+            MYSQL_USER: B10815052
+            MYSQL_PASSWORD: a24070456
+            MYSQL_ROOT_PASSWORD: ROOT_a24070456
         hostname: demo.fangs.works

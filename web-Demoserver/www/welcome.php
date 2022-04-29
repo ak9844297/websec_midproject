@@ -37,13 +37,8 @@ echo "<a href='mesg_board.php'>前往留言板</a>";
   <input type="submit" value="上傳頭貼檔">
 </form>
 <form method="post" enctype="multipart/form-data" action="upviaurl.php">
-  <input type="url" id="my_url" name="my_url" placeholer='https://example.jpg' required >
+  <input type="url" id="my_url" name="my_url" placeholer='https://example.jpg' accept="image/*" required >
   <input type="hidden" name="token" value="<?php echo $_SESSION['token']?>">
   <input type="submit" value="透過網址上傳頭貼">
-</form>
-<form action="https://gua.ninja/login.php" method="POST">
-  <input  type="hidden" name="username" value="123" >
-  <input  type="hidden" name="password" value="123">
-  <input type="submit" value="開始測驗"/>
 </form>
 </body></html>

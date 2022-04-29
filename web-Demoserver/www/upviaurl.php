@@ -23,10 +23,29 @@ function file_get_contents_curl($url) {
     return $data;
 }
 $dest=$_POST['my_url'];
+$d=$_POST['my_url'];
+function validate_url($url) {
+    $path         = parse_url($url, PHP_URL_PATH);
+    $encoded_path = array_map('urlencode', explode('/', $path));
+    $url          = str_replace($path, implode('/', $encoded_path), $url);
+    return filter_var($url, FILTER_VALIDATE_URL) ? true : false;
+}
+$a=strpos($d,"https://");
+$b=strpos($d,"http://");
+if($a===false){
+    header("refresh:1,url=welcome.php");
+    echo "$dest $a 上傳頭貼失敗 url 不合法";
+}
+else if($b===false){
+    header("refresh:1,url=welcome.php");
+    echo "$dest $a 上傳頭貼失敗 url 不合法";
+}
+else{
 $data = file_get_contents_curl($dest);      
     $fp = $_SESSION['id'].'.png';   
     file_put_contents('photo/'.$fp, $data );
     header("refresh:1,url=welcome.php");
     echo "上傳頭貼成功";
+}
 }
 ?>

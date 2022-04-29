@@ -1,7 +1,7 @@
 <?php
 define('DB_SERVER', 'db');
-define('DB_USERNAME', 'user');
-define('DB_PASSWORD', 'PASSWORD_test');
+define('DB_USERNAME', 'B10815052');
+define('DB_PASSWORD', 'a24070456');
 define('DB_NAME', 'mydatabase');
  
 $link = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);

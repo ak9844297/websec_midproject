@@ -12,7 +12,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === false){
 <div class="mesgs">
 <lable for="content">留言內容<lable>
 </br>
-<textarea class="form-control" id="content" name="content" rows="10"></textarea>
+<textarea class="form-control" id="content" required="" name="content" rows="10"></textarea>
 </div>
 <input type="hidden" name="token" value="<?php echo $_SESSION['token']?>">
 <input type="file" name="my_file">
