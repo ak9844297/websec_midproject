@@ -14,7 +14,7 @@ else{
 $myfile = fopen("title.txt", "w") or die("Unable to open file!");
 $txt = $_POST['newtitle'];
 fwrite($myfile, $txt);
-header("Location: admin.html");
+header("Location: admin.php");
 }
 }
 ?>
