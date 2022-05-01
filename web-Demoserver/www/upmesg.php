@@ -9,11 +9,14 @@ if(!$token||$token2!=$token){
 }
 else{
 $date=date("Y-m-d");
-$text=str_replace("'","\'",$text);
-$username=str_replace("'","\'",$username);
 require_once('config.php');
 //$text=htmlspecialchars($text, ENT_QUOTES, $charset);
-mysqli_query($link,"INSERT INTO `messages` (`username`, `text`, `time`) VALUES ('$username','$text','$date');");
+//mysqli_query($link,"INSERT INTO `messages` (`username`, `text`, `time`) VALUES ('$username','$text','$date');");
+$sql2=('INSERT INTO `messages` (`username`, `text`, `time`) VALUES (?,?,?)');
+$res2=$link->prepare($sql2);
+$res2->bind_param('sss',$username,$text,$date);
+$res2->execute();
+$ins=$res2->get_result();
 $sql = "SELECT * FROM `messages`;";
 $result= mysqli_query($link,$sql);
 $num= mysqli_num_rows($result);
